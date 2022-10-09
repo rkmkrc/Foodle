@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "name": "Flutter (lib/Onboarding/OnboardingPage.dart)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/Onboarding/OnboardingPage.dart"
+        }
+    ]
+}

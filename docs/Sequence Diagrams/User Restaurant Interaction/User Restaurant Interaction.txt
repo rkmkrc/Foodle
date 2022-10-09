@@ -1,0 +1,51 @@
+title Foodle User Restaurant Interaction UML Sequence Diagram
+
+participant User
+
+participant UI
+
+participant Server
+
+participant Database Server
+
+loop restaurant interaction
+User->UI: showRestaurants()
+UI->Server: getFilteredRestaurants(userFiltersBody)
+Server->Database Server: getRestaurantData(restaurantSettingsQuery)
+Database Server-->Server: restaurants
+Server-->UI: restaurantList
+
+
+User->UI: selectRestaurant()
+UI->Server: getSelectedRestaurant(restaurantID)
+Server->Database Server: getDetailedRestaurantData(restaurantID)
+Database Server-->Server: restaurantData
+Server->Database Server: getReviewsData(reviewsFilter)
+Database Server-->Server: reviews
+Server-->UI: restaurantData
+end 
+
+loop restaurant meal interaction
+User->UI: showMeal()
+UI->Server: getSelectedMeal(restaurantMealID)
+Server->Database Server: getMealData(restaurantMealID)
+Database Server-->Server: mealData
+UI->Server: getMealReviews(restaurantMealID)
+Server->Database Server: getReviewsData(reviewsFilter)
+Database Server-->Server: reviews
+Server-->UI: mealData
+end
+
+loop restaurant user review interaction
+User->UI: sendReview()
+UI->Server: postReview(reviewBody)
+Server->Database Server: insertReview(reviewBody)
+Database Server-->Server: result
+Server-->UI: postReviewSuccess
+
+User->UI: voteUserReview()
+UI->Server: postReviewVote(reviewID, voteType)
+Server->Database Server: insertReviewVote(reviewID, voteType)
+Database Server-->Server: result
+Server-->UI: postReviewVoteSuccess
+end
